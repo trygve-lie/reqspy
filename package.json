@@ -1,0 +1,39 @@
+{
+  "name": "reqspy",
+  "version": "1.0.0",
+  "description": "A non intrusive request spy - log incoming and outgoing http requests in an application",
+  "main": "lib/spy.js",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:trygve-lie/reqspy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trygve-lie/reqspy/issues"
+  },
+  "homepage": "https://github.com/trygve-lie/reqspy#readme",
+  "author": "Trygve Lie",
+  "license": "MIT",
+  "keywords": [
+    "logging",
+    "spy",
+    "request"
+  ],
+  "scripts": {
+    "test": "tap test/*.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-config-prettier": "6.9.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-import": "2.19.1",
+    "synclog": "1.0.1",
+    "prettier": "1.19.1",
+    "tap": "14.10.5"
+  }
+}
