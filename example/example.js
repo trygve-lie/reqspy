@@ -1,14 +1,13 @@
 'use strict';
 
 const https = require('https');
-const http = require('http');
 const Spy = require('../');
 
 const spy = new Spy();
 spy.enable();
 
-spy.on('host', (host, ip, family, err ) => {
-    console.log('new host requested', host, ip, family, err);
+spy.on('host', (info) => {
+    console.log('new host requested', info);
 })
 
 setTimeout(() => {
@@ -34,10 +33,3 @@ setTimeout(() => {
         // console.log('got stuff');
     }).on('error', () => {});
 }, 400);
-
-
-
-http.createServer((req, res) => {
-    res.write('ok');
-    res.end();
-}).listen(8001);
