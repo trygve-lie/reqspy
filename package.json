@@ -34,6 +34,6 @@
     "eslint-plugin-import": "2.20.0",
     "synclog": "1.0.1",
     "prettier": "1.19.1",
-    "tap": "14.10.5"
+    "tap": "14.10.6"
   }
 }
