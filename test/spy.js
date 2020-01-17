@@ -95,7 +95,7 @@ test('"host" event on un-resolved host', async (t) => {
 test('The spy is not enabled', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
 
-    let result = [];
+    const result = [];
 
     spy.on('host', (obj) => {
         result.push(obj);
@@ -115,7 +115,7 @@ test('The spy is enabled, then disabled', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
     spy.enable();
 
-    let result = [];
+    const result = [];
 
     spy.on('host', (obj) => {
         result.push(obj);
@@ -139,7 +139,7 @@ test('Recorded values on resolved host', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
     spy.enable();
 
-    let result = [];
+    const result = [];
 
     spy.on('host', (obj) => {
         result.push(obj);
@@ -159,7 +159,7 @@ test('Recorded values on un-resolved host', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
     spy.enable();
 
-    let result = [];
+    const result = [];
 
     spy.on('host', (obj) => {
         result.push(obj);
