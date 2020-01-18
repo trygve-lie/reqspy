@@ -34,14 +34,10 @@
     "eslint-plugin-import": "2.20.0",
     "synclog": "1.0.1",
     "prettier": "1.19.1",
-<<<<<<< HEAD
     "tap": "14.10.5"
   },
   "dependencies": {
     "@metrics/client": "2.5.0",
     "@metrics/metric": "2.3.1"
-=======
-    "tap": "14.10.6"
->>>>>>> 8b7db22aae399121dfc3982120a0c8d2ee265a7f
   }
 }
