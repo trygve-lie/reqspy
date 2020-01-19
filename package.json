@@ -1,6 +1,6 @@
 {
   "name": "reqspy",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A non intrusive request spy - log outgoing http(s) requests from an application.",
   "main": "lib/spy.js",
   "files": [
