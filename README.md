@@ -56,11 +56,12 @@ const Spy = require('reqspy');
 const spy = new Spy(options);
 ```
 
-### options (optional)
+### options (required)
 
 An Object containing misc configuration. The following values can be provided:
 
- * **hostname** - `String` - The hostname of the application we are logging. Will appear in the output log.
+ * **hostname** - `String` - The hostname of the application we are logging. Will appear in the output log. - `required`
+ * **metricName** - `String` - Custom name for the metric on the metric stream - `optional`
 
 
 ## API
@@ -77,13 +78,34 @@ which does the interception.
 Disables the spy from intercept http(s) calls. Under the hood this disables the async
 hook which does the interception.
 
-### .values()
+### .metrics
 
-Returns a list of all hosts which has been requested.
+Attribute which holds a [metrics stream](https://github.com/metrics-js/client) that
+emits metrics data.
 
-### .clear()
+The stream will emit an event of the following character for each request it detects:
 
-Clears the internally kept log of hosts the spy have logged.
+```js
+{
+    name: 'requests_outgoing',
+    description: 'Outgoing requests to downstream HTTP(S) services',
+    timestamp: 1579468682.531,
+    type: 2,
+    value: 1,
+    labels: [
+      { name: 'service', value: 'turing' },
+      { name: 'hostname', value: 'github.com' },
+      { name: 'address', value: '140.82.118.3' },
+      { name: 'family', value: 4 },
+      { name: 'error', value: false }
+    ],
+    time: null,
+    meta: {}
+}
+```
+
+Please see [@metrics/client](https://github.com/metrics-js/client) for examples
+of consuming these metrics into your favorite monitoring system.
 
 ## Events
 
@@ -91,7 +113,7 @@ For each request the ReqSpy instance will emit one of the following events:
 
 ### host
 
-Emitted when the ReqSpy encounters a request to a new host.
+Emitted when the ReqSpy encounters a request.
 
 ```js
 const spy = new Spy(options);
