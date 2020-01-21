@@ -20,7 +20,7 @@ spy.on('host', (info) => {
     console.log('new host requested', info);
 });
 
-// Do http requests with any http lib. The breaker will guard it.
+// Do http requests with any http lib. The Spy will log it.
 request('http://api.somewhere.com', (error, response, body) => {
     console.log(body);
 });
