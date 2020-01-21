@@ -31,7 +31,7 @@ const to = (done) => {
 };
 
 test('Object type', (t) => {
-    const spy = new Spy({ hostname: 'turing' });
+    const spy = new Spy({ hostname: 'turing', enable: false });
     t.equal(Object.prototype.toString.call(spy), '[object ReqSpy]', 'should be ReqSpy');
     t.end();
 });
@@ -39,7 +39,7 @@ test('Object type', (t) => {
 test('No arguments', (t) => {
     t.plan(1);
     t.throws(() => {
-        const spy = new Spy(); // eslint-disable-line no-unused-vars
+        const spy = new Spy({ enable: false }); // eslint-disable-line no-unused-vars
     }, /The argument "hostname" must be provided/, 'should throw');
     t.end();
 });
@@ -47,14 +47,13 @@ test('No arguments', (t) => {
 test('The argument "metricName" is not legal', (t) => {
     t.plan(1);
     t.throws(() => {
-        const spy = new Spy({ hostname: 'turing', metricName: {} }); // eslint-disable-line no-unused-vars
+        const spy = new Spy({ hostname: 'turing', metricName: {}, enable: false }); // eslint-disable-line no-unused-vars
     }, /Provided value to argument "metricName" is not legal/, 'should throw');
     t.end();
 });
 
 test('"host" event on resolved host', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
-    spy.enable();
 
     let result = {};
 
@@ -74,7 +73,6 @@ test('"host" event on resolved host', async (t) => {
 
 test('"host" event on un-resolved host', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
-    spy.enable();
 
     let result = {};
 
@@ -92,8 +90,8 @@ test('"host" event on un-resolved host', async (t) => {
     t.end();
 });
 
-test('The spy is not enabled', async (t) => {
-    const spy = new Spy({ hostname: 'turing' });
+test('The spy is not enabled by default', async (t) => {
+    const spy = new Spy({ hostname: 'turing', enable: false });
 
     const result = [];
 
@@ -113,7 +111,6 @@ test('The spy is not enabled', async (t) => {
 
 test('The spy is enabled, then disabled', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
-    spy.enable();
 
     const result = [];
 
@@ -137,7 +134,6 @@ test('The spy is enabled, then disabled', async (t) => {
 
 test('Recorded values on resolved host', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
-    spy.enable();
 
     const result = [];
 
@@ -157,7 +153,6 @@ test('Recorded values on resolved host', async (t) => {
 
 test('Recorded values on un-resolved host', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
-    spy.enable();
 
     const result = [];
 
@@ -177,7 +172,6 @@ test('Recorded values on un-resolved host', async (t) => {
 
 test('metric stream', async (t) => {
     const spy = new Spy({ hostname: 'turing' });
-    spy.enable();
 
     const dest = to((result) => {
         t.equal(result.length, 3, 'should emit a metric for each host');
@@ -196,7 +190,6 @@ test('metric stream', async (t) => {
 
 test('metric stream values', async (t) => {
     const spy = new Spy({ metricName: 'alan', hostname: 'turing' });
-    spy.enable();
 
     const dest = to((result) => {
         t.equal(result[0].name, 'alan', 'should have same value as "metricName" on constructor');
@@ -209,26 +202,3 @@ test('metric stream values', async (t) => {
 
     dest.end();
 });
-
-
-/*
-test('Argument "hostname" is not set on constructor', (t) => {
-    const spy = new Spy();
-
-    const str = JSON.stringify(spy);
-    const obj = JSON.parse(str);
-
-    t.equal(obj.hostname, '', 'should be an empty Sting');
-    t.end();
-});
-
-test('Argument "hostname" is set on constructor', (t) => {
-    const spy = new Spy({ hostname: 'foobar' });
-
-    const str = JSON.stringify(spy);
-    const obj = JSON.parse(str);
-
-    t.equal(obj.hostname, 'foobar', 'should be the same as set on the constructor');
-    t.end();
-});
-*/

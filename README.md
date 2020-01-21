@@ -20,8 +20,6 @@ spy.on('host', (info) => {
     console.log('new host requested', info);
 });
 
-spy.enable();
-
 // Do http requests with any http lib. The breaker will guard it.
 request('http://api.somewhere.com', (error, response, body) => {
     console.log(body);
@@ -60,8 +58,9 @@ const spy = new Spy(options);
 
 An Object containing misc configuration. The following values can be provided:
 
- * **hostname** - `String` - The hostname of the application we are logging. Will appear in the output log. - `required`
+ * **hostname** - `String` - The hostname of the application we are logging. Will appear in the output log - `required`
  * **metricName** - `String` - Custom name for the metric on the metric stream - `optional`
+ * **enable** - `Boolean` - Enable interception of http(s) calls upon instansiation of the Spy - `optional`
 
 
 ## API
