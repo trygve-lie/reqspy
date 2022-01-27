@@ -2,7 +2,7 @@
 
 const { Writable } = require('stream');
 const https = require('https');
-const Spy = require('../');
+const Spy = require("..");
 
 const spy = new Spy();
 spy.enable();
