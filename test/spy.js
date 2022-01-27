@@ -3,17 +3,15 @@
 const { Writable } = require('stream');
 const { test } = require('tap');
 const https = require('https');
-const Spy = require('../');
+const Spy = require("..");
 
-const get = (url) => {
-    return new Promise((resolve) => {
+const get = (url) => new Promise((resolve) => {
         https.get(url, () => {
             process.nextTick(resolve);
         }).on('error', () => {
             process.nextTick(resolve);
         });
     });
-};
 
 const to = (done) => {
     const items = [];
@@ -24,7 +22,7 @@ const to = (done) => {
             callback();
         }
     });
-    writer.on('finish', () => {
+    writer.on('end', () => {
         done(items);
     });
     return writer;
@@ -67,7 +65,7 @@ test('"host" event on resolved host', async (t) => {
     t.type(result.address, 'string', '".address" should be a Sting');
     t.type(result.family, 'number', '".family" should be a Number');
     t.type(result.error, 'boolean', '".error" should be a Boolean');
-    t.false(result.error, '".error" should be "false"');
+    t.notOk(result.error, '".error" should be "false"');
     t.end();
 });
 
@@ -86,7 +84,7 @@ test('"host" event on un-resolved host', async (t) => {
     t.type(result.address, 'null', '".address" should be a null');
     t.type(result.family, 'null', '".family" should be a null');
     t.type(result.error, 'boolean', '".error" should be a Boolean');
-    t.true(result.error, '".error" should be "true"');
+    t.ok(result.error, '".error" should be "true"');
     t.end();
 });
 
@@ -147,7 +145,7 @@ test('Recorded values on resolved host', async (t) => {
     t.type(result[0].address, 'string', '".address" should be a Sting');
     t.type(result[0].family, 'number', '".family" should be a Number');
     t.type(result[0].error, 'boolean', '".error" should be a Boolean');
-    t.false(result[0].error, '".error" should be "false"');
+    t.notOk(result[0].error, '".error" should be "false"');
     t.end();
 });
 
@@ -166,7 +164,7 @@ test('Recorded values on un-resolved host', async (t) => {
     t.type(result[0].address, 'null', '".address" should be a null');
     t.type(result[0].family, 'null', '".family" should be a null');
     t.type(result[0].error, 'boolean', '".error" should be a Boolean');
-    t.true(result[0].error, '".error" should be "true"');
+    t.ok(result[0].error, '".error" should be "true"');
     t.end();
 });
 
