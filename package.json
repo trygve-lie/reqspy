@@ -33,7 +33,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-import": "2.25.4",
     "synclog": "1.0.1",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "tap": "15.1.6"
   },
   "dependencies": {
