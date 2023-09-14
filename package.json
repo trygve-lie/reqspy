@@ -38,6 +38,6 @@
   },
   "dependencies": {
     "@metrics/client": "2.5.1",
-    "@metrics/metric": "2.3.1"
+    "@metrics/metric": "2.3.2"
   }
 }
