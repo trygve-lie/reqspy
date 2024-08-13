@@ -34,7 +34,7 @@
     "eslint-plugin-import": "2.29.1",
     "synclog": "1.0.1",
     "prettier": "2.8.8",
-    "tap": "15.2.3"
+    "tap": "21.0.1"
   },
   "dependencies": {
     "@metrics/client": "2.5.3",
