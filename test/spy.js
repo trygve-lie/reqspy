@@ -1,6 +1,8 @@
 'use strict';
 
+const { createServer, connect } = require('net');
 const { Writable } = require('stream');
+const { once } = require('events');
 const { test } = require('tap');
 const https = require('https');
 const Spy = require("..");
@@ -127,6 +129,32 @@ test('The spy is enabled, then disabled', async (t) => {
     await get('https://google.com');
 
     t.equal(result.length, 2, 'should have logged two hosts');
+    t.end();
+});
+
+test('The spy detaches from open sockets when disabled', async (t) => {
+    const spy = new Spy({ hostname: 'turing' });
+
+    const server = createServer().listen(0, '127.0.0.1');
+    await once(server, 'listening');
+
+    // Connecting to an IP address performs no DNS lookup, so the listener the
+    // spy attaches is never consumed and is still there to be counted.
+    const socket = connect(server.address().port, '127.0.0.1');
+    await once(socket, 'connect');
+
+    // Spies from earlier tests are still enabled, so this counts the delta
+    // rather than expecting this spy to be the only listener.
+    const attached = socket.listenerCount('lookup');
+    t.ok(attached > 0, 'should have attached a listener to the socket');
+
+    spy.disable();
+
+    t.equal(socket.listenerCount('lookup'), attached - 1, 'should have removed its listener from the socket');
+
+    socket.destroy();
+    server.close();
+    await once(server, 'close');
     t.end();
 });
 
