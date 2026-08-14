@@ -75,7 +75,8 @@ which does the interception.
 ### .disable()
 
 Disables the spy from intercept http(s) calls. Under the hood this disables the async
-hook which does the interception.
+hook which does the interception and removes the listeners the spy has attached to
+sockets which are still open, so a disabled spy leaves nothing behind.
 
 ### .metrics
 
